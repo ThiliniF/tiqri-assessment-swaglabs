@@ -14,7 +14,7 @@ namespace SwagLabs.Definitions.Hooks
             context = driverContext;
         }
 
-        [BeforeFeature]
+        [BeforeScenario]
         public void BeforeScenario()
         {
             var config = TestConfiguration.Load();
@@ -23,7 +23,7 @@ namespace SwagLabs.Definitions.Hooks
             context.Driver = driver;
         }
 
-        [AfterFeature]
+        [AfterScenario]
         public void AfterScenario()
         {
             context.Driver.Quit();
