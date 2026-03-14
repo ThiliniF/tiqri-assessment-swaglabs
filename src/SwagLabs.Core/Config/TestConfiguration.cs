@@ -12,7 +12,7 @@ namespace SwagLabs.Core.Config
         public static TestConfiguration Load()
         {
             var config = new ConfigurationBuilder()
-                .AddJsonFile("appSettings.json", optional: false)
+                .AddJsonFile("appsettings.json", optional: false)
                 .AddEnvironmentVariables()
                 .Build();
 
