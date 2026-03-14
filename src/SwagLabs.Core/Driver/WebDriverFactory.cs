@@ -36,7 +36,12 @@ namespace SwagLabs.Core.Driver
         private static ChromeDriver CreateChromeDriver()
         {
             var options = new ChromeOptions();
-            // options.AddArgument("--headless=new"); // For headless run
+            if(Environment.GetEnvironmentVariable("CI") == "true")
+            {
+                options.AddArgument("--headless=new");
+                options.AddArgument("--no-sandbox");
+                options.AddArgument("--disable-dev-shm-usage");
+            }
             return new ChromeDriver(options);
         }
     }

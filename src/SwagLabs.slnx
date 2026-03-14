@@ -1,4 +1,8 @@
 <Solution>
+  <Folder Name="/.github/" />
+  <Folder Name="/.github/workflows/">
+    <File Path="e2e-tests.yml" />
+  </Folder>
   <Project Path="SwagLabs.Core/SwagLabs.Core.csproj" />
   <Project Path="SwagLabs.Definitions/SwagLabs.Definitions.csproj" />
   <Project Path="SwagLabs.PageObjects/SwagLabs.PageObjects.csproj" />
