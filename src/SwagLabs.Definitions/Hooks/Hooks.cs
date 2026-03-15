@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Support.UI;
 using Reqnroll.BoDi;
 using SwagLabs.Core.Config;
 using SwagLabs.Core.Driver;
@@ -45,7 +46,22 @@ namespace SwagLabs.Definitions.Hooks
                 Directory.CreateDirectory(dir);
                 screenshot.SaveAsFile(Path.Combine(dir, fileName));
             }
+            ResetAppState();
             context.QuitDriver();
+        }
+        private void ResetAppState()
+        {
+            try
+            {
+                var wait = new WebDriverWait(context.Driver, TimeSpan.FromSeconds(5));
+
+                wait.Until(d => d.FindElement(By.Id("react-burger-menu-btn"))).Click();
+
+                wait.Until(d => d.FindElement(By.Id("reset_sidebar_link"))).Click();
+
+                wait.Until(d => d.FindElement(By.Id("react-burger-cross-btn"))).Click();
+            }
+            catch { }
         }
     }
 }

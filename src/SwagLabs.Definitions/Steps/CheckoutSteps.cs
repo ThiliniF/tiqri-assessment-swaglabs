@@ -11,20 +11,31 @@ namespace SwagLabs.Definitions.Steps
     public class CheckoutSteps
     {
         private readonly DriverContext context;
+        private readonly ScenarioContext scenarioContext;
         private readonly InventoryPage inventoryPage;
         private readonly InventoryItemPage inventoryItemPage;
         private readonly HeaderPage headerPage;
         private readonly CartPage cartPage;
         private readonly CheckoutStepOnePage checkoutStepOnePage;
+        private readonly CheckoutStepTwoPage checkoutStepTwoPage;
 
-        public CheckoutSteps(DriverContext driverContext, InventoryPage inventoryPage, InventoryItemPage inventoryItemPage, HeaderPage headerPage, CartPage cartPage, CheckoutStepOnePage checkoutStepOnePage)
+        public CheckoutSteps(DriverContext driverContext,
+            ScenarioContext scenarioContext,
+            InventoryPage inventoryPage, 
+            InventoryItemPage inventoryItemPage, 
+            HeaderPage headerPage, 
+            CartPage cartPage, 
+            CheckoutStepOnePage checkoutStepOnePage,
+            CheckoutStepTwoPage checkoutStepTwoPage)
         {
             context = driverContext;
+            this.scenarioContext = scenarioContext;
             this.inventoryPage = inventoryPage;
             this.inventoryItemPage = inventoryItemPage;
             this.headerPage = headerPage;
             this.cartPage = cartPage;
             this.checkoutStepOnePage = checkoutStepOnePage;
+            this.checkoutStepTwoPage = checkoutStepTwoPage;
         }
 
         [Given("I am on the {string} page")]
@@ -69,7 +80,7 @@ namespace SwagLabs.Definitions.Steps
         {
             foreach (var row in dataTable.Rows)
             {
-                var fieldLabel = row[0];
+                var fieldLabel = row["Field"];
                 Assert.That(checkoutStepOnePage.IsFieldVisible(fieldLabel), Is.True,
                     $"Expected field '{fieldLabel}' to be visible");
             }
@@ -112,6 +123,76 @@ namespace SwagLabs.Definitions.Steps
         {
             WaitHelper.WaitForUrl(context.Driver, "checkout-step-two");
             Assert.That(context.Driver.Url, Does.Contain("checkout-step-two"));
+        }
+
+        [When("I add the following items to the cart")]
+        public void WhenIAddTheFollowingItemsToTheCart(DataTable dataTable)
+        {
+            foreach (var row in dataTable.Rows)
+            {
+                inventoryPage.AddItemToCart(row["Item"]);
+            }
+        }
+
+        [Then("the cart should contain")]
+        public void ThenTheCartShouldContain(DataTable dataTable)
+        {
+            var expectedItems = dataTable.Rows.Select(r => r["Item"]).ToList();
+            var actualItems = cartPage.GetCartItemNames();
+            Assert.That(actualItems, Is.EquivalentTo(expectedItems),
+                $"Expected cart to contain: {string.Join(", ", expectedItems)}");
+        }
+        [When("I get the item price as {string}")]
+        public void WhenIGetTheItemPriceAs(string itemPrice)
+        {
+            scenarioContext[itemPrice] = inventoryItemPage.GetItemPrice();
+        }
+
+        [Then("the price should display {string}")]
+        public void ThenThePriceShouldDisplay(string itemPrice)
+        {
+            var expectedPrice = (decimal)scenarioContext[itemPrice];
+            var displayedPrices = checkoutStepTwoPage.GetItemPrices();
+            Assert.That(displayedPrices, Does.Contain(expectedPrice),
+                $"Expected price ${expectedPrice} to be displayed on the overview page");
+        }
+
+        [Then("I should see the payment information")]
+        public void ThenIShouldSeeThePaymentInformation()
+        {
+            Assert.That(checkoutStepTwoPage.IsPaymentInfoDisplayed(), Is.True,
+                "Expected payment information to be displayed");
+        }
+
+        [Then("I should see the shipping information")]
+        public void ThenIShouldSeeTheShippingInformation()
+        {
+            Assert.That(checkoutStepTwoPage.IsShippingInfoDisplayed(), Is.True,
+                "Expected shipping information to be displayed");
+        }
+
+        [Then("I should see the item total")]
+        public void ThenIShouldSeeTheItemTotal()
+        {
+            Assert.That(checkoutStepTwoPage.GetItemTotal(), Is.GreaterThan(0),
+                "Expected item total to be displayed and greater than zero");
+        }
+
+        [Then("I should see the tax amount")]
+        public void ThenIShouldSeeTheTaxAmount()
+        {
+            Assert.That(checkoutStepTwoPage.GetTax(), Is.GreaterThan(0),
+                "Expected tax amount to be displayed and greater than zero");
+        }
+
+        [Then("the order total should be the sum of item total and tax")]
+        public void ThenTheOrderTotalShouldBeTheSumOfItemTotalAndTax()
+        {
+            var itemTotal = checkoutStepTwoPage.GetItemTotal();
+            var tax = checkoutStepTwoPage.GetTax();
+            var orderTotal = checkoutStepTwoPage.GetOrderTotal();
+            Assert.That(orderTotal, Is.EqualTo(itemTotal + tax).Within(0.01m),
+                $"Expected order total ${orderTotal} to equal item total ${itemTotal} + tax ${tax}");
         }
     }
 }

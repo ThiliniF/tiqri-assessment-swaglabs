@@ -15,5 +15,10 @@ namespace SwagLabs.PageObjects.Pages
         {
             WaitForClickable(By.LinkText(productName)).Click();
         }
+        public void AddItemToCart(string productName)
+        {
+            var name = productName.ToLower().Replace(" ", "-");
+            WaitForClickable(ByTestId($"add-to-cart-{name}")).Click();
+        }
     }
 }
