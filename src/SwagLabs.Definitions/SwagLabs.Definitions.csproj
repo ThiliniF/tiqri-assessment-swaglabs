@@ -14,12 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Login\" />
-    <Folder Include="Features\Checkout\" />
-    <Folder Include="Steps\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\SwagLabs.PageObjects\SwagLabs.PageObjects.csproj" />
   </ItemGroup>
   

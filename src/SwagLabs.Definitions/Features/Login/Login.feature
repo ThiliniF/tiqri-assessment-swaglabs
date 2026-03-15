@@ -1,4 +1,4 @@
-﻿Feature: login
+﻿Feature: Login Flow
 
 As a standard user
 I want to log in to Swag Labs
