@@ -10,10 +10,12 @@ namespace SwagLabs.PageObjects.Pages
     public class CartPage : BasePage
     {
         private readonly By checkoutBtn = ByTestId("checkout");
+        private readonly By cartTitle = ByTestId("title");
         public CartPage(IWebDriver driver, TestConfiguration config) : base(driver, config) { }
 
         public void ClickCheckoutBtn()
         {
+            WaitForElement(cartTitle);
             WaitForClickable(checkoutBtn).Click();
         }
     }
