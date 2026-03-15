@@ -26,7 +26,7 @@ jobs:
         run: dotnet build src/SwagLabs.slnx --no-restore
 
       - name: Run Tests
-        run: dotnet test src/SwagLabs.Definitions/SwagLabs.Definitions.csproj --no-build --filter "Category=e2e --logger "trx;LogFileName=test-results.trx"
+        run: dotnet test src/SwagLabs.Definitions/SwagLabs.Definitions.csproj --no-build --filter "Category=e2e" --logger "trx;LogFileName=test-results.trx"
 
       - name: Upload test results
         uses: actions/upload-artifact@v4
