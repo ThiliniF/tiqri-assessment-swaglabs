@@ -29,11 +29,18 @@ jobs:
         run: dotnet build src/SwagLabs.slnx --no-restore
 
       - name: Run Tests
-        run: dotnet test src/SwagLabs.Definitions/SwagLabs.Definitions.csproj --no-build --logger "trx;LogFileName=test-results.trx"
+        run: dotnet test src/SwagLabs.Definitions/SwagLabs.Definitions.csproj --no-build --filter "Category=e2e" --logger "trx;LogFileName=test-results.trx"
 
-      - name: Upload test results
+      - name: Install Allure CLI
+        run: npm install -g allure-commandline
+
+      - name: Generate Allure Report
+        if: always()
+        run: allure generate src/SwagLabs.Definitions/allure-results --clean -o allure-report
+
+      - name: Upload Allure Report
         uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: test-results
-          path: "**/test-results.trx"
+          name: allure-report
+          path: allure-report
