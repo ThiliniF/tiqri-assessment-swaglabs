@@ -1,4 +1,5 @@
-﻿Feature: Checkout Flow
+﻿@e2e @happy-path
+Feature: Checkout Flow
 
 As a standard user
 I want to complete a purchase on Swag Labs
@@ -9,8 +10,6 @@ Background:
     When I login as a standard user
     Then I should be on the inventory page
 
-
-@e2e @happy-path
 Scenario: Checkout information form is displayed after adding a product
     Given I am on the "Products" page
     When I click on "Sauce Labs Backpack"
