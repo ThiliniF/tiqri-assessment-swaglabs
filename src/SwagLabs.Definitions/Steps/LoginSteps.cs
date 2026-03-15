@@ -11,10 +11,10 @@ namespace SwagLabs.Definitions.Steps
         private readonly DriverContext context;
         private LoginPage loginPage;
 
-        public LoginSteps(DriverContext driverContext)
+        public LoginSteps(DriverContext driverContext, LoginPage loginPage)
         {
             context = driverContext;
-            loginPage = new LoginPage(context.Driver!, context.Config!);
+            this.loginPage = loginPage;
         }
 
         [Given("I am on the login page")]
@@ -23,11 +23,11 @@ namespace SwagLabs.Definitions.Steps
             loginPage.NavigateToLoginPage();
         }
 
-        [When ("I login with username {string} and password {string}")]
-        public void WhenILoginWithUsernameAndPassword(string username, string password)
+        [When ("I login as a standard user")]
+        public void WhenILoginAsAStandardUser()
         {
-            loginPage.EnterUsername(username);
-            loginPage.EnterPassword(password);
+            loginPage.EnterUsername(context.Config.Username);
+            loginPage.EnterPassword(context.Config.Password);
             loginPage.ClickOnLoginBtn();
         }
 

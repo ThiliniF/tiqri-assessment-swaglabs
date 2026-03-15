@@ -1,6 +1,7 @@
 ﻿using NUnit.Framework;
 using SwagLabs.Core.Helpers;
 using SwagLabs.Definitions.Support;
+using SwagLabs.PageObjects.Components;
 using SwagLabs.PageObjects.Pages;
 using System.Diagnostics.Metrics;
 
@@ -10,26 +11,26 @@ namespace SwagLabs.Definitions.Steps
     public class CheckoutSteps
     {
         private readonly DriverContext context;
-        private InventoryPage inventoryPage;
-        private InventoryItemPage inventoryItemPage;
-        private HeaderPage headerPage;
-        private CartPage cartPage;
-        private CheckoutStepOnePage checkoutStepOnePage;
+        private readonly InventoryPage inventoryPage;
+        private readonly InventoryItemPage inventoryItemPage;
+        private readonly HeaderPage headerPage;
+        private readonly CartPage cartPage;
+        private readonly CheckoutStepOnePage checkoutStepOnePage;
 
-        public CheckoutSteps(DriverContext driverContext)
+        public CheckoutSteps(DriverContext driverContext, InventoryPage inventoryPage, InventoryItemPage inventoryItemPage, HeaderPage headerPage, CartPage cartPage, CheckoutStepOnePage checkoutStepOnePage)
         {
             context = driverContext;
-            inventoryPage = new InventoryPage(context.Driver!, context.Config!);
-            inventoryItemPage = new InventoryItemPage(context.Driver!, context.Config!);
-            headerPage = new HeaderPage(context.Driver!, context.Config!);
-            cartPage = new CartPage(context.Driver!, context.Config!);
-            checkoutStepOnePage = new CheckoutStepOnePage(context.Driver!, context.Config!);
+            this.inventoryPage = inventoryPage;
+            this.inventoryItemPage = inventoryItemPage;
+            this.headerPage = headerPage;
+            this.cartPage = cartPage;
+            this.checkoutStepOnePage = checkoutStepOnePage;
         }
 
         [Given("I am on the {string} page")]
         public void GivenIAmOnTheInventoryPage(string pageHeader)
         {
-            Assert.That(inventoryPage.ExtractPageHeader(pageHeader), Is.EqualTo(pageHeader));
+            Assert.That(headerPage.ExtractPageTitle(), Is.EqualTo(pageHeader));
         }
 
         [When("I click on {string}")]
@@ -84,26 +85,26 @@ namespace SwagLabs.Definitions.Steps
         [When("I enter first name {string}")]
         public void WhenIEnterFirstName(string firstName)
         {
-            checkoutStepOnePage.enterFirstName(firstName);
+            checkoutStepOnePage.EnterFirstName(firstName);
         }
 
         [When("I enter last name {string}")]
         public void WhenIEnterLastName(string lastName)
         {
-            checkoutStepOnePage.enterLastName(lastName);
+            checkoutStepOnePage.EnterLastName(lastName);
         }
 
 
         [When("I enter zip code {string}")]
         public void WhenIEnterZipCode(string zipCode)
         {
-            checkoutStepOnePage.enterZipCode(zipCode);
+            checkoutStepOnePage.EnterZipCode(zipCode);
         }
 
         [When("I click on continue button")]
         public void WhenIClickOnContinueButton()
         {
-            checkoutStepOnePage.clickOnContinueBtn();
+            checkoutStepOnePage.ClickOnContinueBtn();
         }
 
         [Then("I should be on the checkout step two page")]

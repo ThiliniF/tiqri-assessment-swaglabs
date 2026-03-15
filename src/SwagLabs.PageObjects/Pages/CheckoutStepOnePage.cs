@@ -40,25 +40,28 @@ namespace SwagLabs.PageObjects.Pages
             return WaitForElement(buttons[buttonLabel]).Displayed;
         }
 
-        public void enterFirstName(string firstName)
+        public void EnterFirstName(string firstName)
         {
-            WaitForElement(firstNameInput).Clear();
-            WaitForElement(firstNameInput).SendKeys(firstName);
+            var element = WaitForElement(firstNameInput);
+            element.Clear();
+            element.SendKeys(firstName);
         }
 
-        public void enterLastName(string lastName)
+        public void EnterLastName(string lastName)
         {
-            WaitForElement(lastNameInput).Clear();
-            WaitForElement(lastNameInput).SendKeys(lastName);
+            var element = WaitForElement(lastNameInput);
+            element.Clear();
+            element.SendKeys(lastName);
         }
 
-        public void enterZipCode(string zipCode)
+        public void EnterZipCode(string zipCode)
         {
-            WaitForElement(zipCodeInput).Clear();
-            WaitForElement(zipCodeInput).SendKeys(zipCode);
+            var element = WaitForElement(zipCodeInput);
+            element.Clear();
+            element.SendKeys(zipCode);
         }
 
-        public void clickOnContinueBtn()
+        public void ClickOnContinueBtn()
         {
             WaitForClickable(continueBtn).Click();
         }

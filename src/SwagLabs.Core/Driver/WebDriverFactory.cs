@@ -36,7 +36,12 @@ namespace SwagLabs.Core.Driver
         private static ChromeDriver CreateChromeDriver()
         {
             var options = new ChromeOptions();
-            if(Environment.GetEnvironmentVariable("CI") == "true")
+
+            options.AddUserProfilePreference("credentials_enable_service", false);
+            options.AddUserProfilePreference("profile.password_manager_enabled", false);
+            options.AddUserProfilePreference("profile.password_manager_leak_detection", false);
+
+            if (Environment.GetEnvironmentVariable("CI") == "true")
             {
                 options.AddArgument("--headless=new");
                 options.AddArgument("--no-sandbox");

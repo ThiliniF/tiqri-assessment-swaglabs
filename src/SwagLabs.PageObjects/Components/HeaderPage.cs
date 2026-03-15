@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace SwagLabs.PageObjects.Pages
+namespace SwagLabs.PageObjects.Components
 {
     public class HeaderPage : BasePage
     {

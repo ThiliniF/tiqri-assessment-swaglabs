@@ -19,6 +19,11 @@ jobs:
         with:
           dotnet-version: "10.0.x"
 
+      - name: Create .env file from secrets
+        run: |
+          echo "Username=${{ vars.SWAG_LABS_USERNAME }}" >> .env
+          echo "Password=${{ secrets.SWAG_LABS_PASSWORD }}" >> .env
+
       - name: Setup Chrome
         uses: browser-actions/setup-chrome@v1
 

@@ -5,7 +5,27 @@ namespace SwagLabs.Definitions.Support
 {
     public class DriverContext
     {
-        public IWebDriver? Driver { get; set; } = null;
-        public TestConfiguration? Config { get; set; } = null;
+        private IWebDriver? driver;
+        private TestConfiguration? config;
+
+        public IWebDriver Driver
+        {
+            get => driver ?? throw new InvalidOperationException(
+                "WebDriver has not been initialized. Ensure BeforeScenario hook ran successfully.");
+            set => driver = value;
+        }
+
+        public TestConfiguration Config
+        {
+            get => config ?? throw new InvalidOperationException(
+                "TestConfiguration has not been initialized. Ensure BeforeScenario hook ran successfully.");
+            set => config = value;
+        }
+
+        public void QuitDriver()
+        {
+            driver?.Quit();
+            driver = null;
+        }
     }
 }
