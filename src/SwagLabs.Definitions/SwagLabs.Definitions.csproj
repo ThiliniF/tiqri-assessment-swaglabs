@@ -11,17 +11,10 @@
     <PackageReference Include="Reqnroll.NUnit" Version="3.3.3" />
     <PackageReference Include="nunit" Version="4.5.1" />
     <PackageReference Include="NUnit3TestAdapter" Version="6.1.0" />
-    <PackageReference Include="Allure.NUnit" Version="2.12.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\SwagLabs.PageObjects\SwagLabs.PageObjects.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="allureConfig.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
   </ItemGroup>
   
 </Project>
