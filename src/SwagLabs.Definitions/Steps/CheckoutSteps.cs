@@ -2,6 +2,7 @@
 using SwagLabs.Core.Helpers;
 using SwagLabs.Definitions.Support;
 using SwagLabs.PageObjects.Pages;
+using System.Diagnostics.Metrics;
 
 namespace SwagLabs.Definitions.Steps
 {
@@ -59,7 +60,7 @@ namespace SwagLabs.Definitions.Steps
         [Then("I should see the page header {string}")]
         public void ThenIShouldSeeThePageHeader(string expectedHeader)
         {
-            Assert.That(checkoutStepOnePage.ExtractPageTitle(), Is.EqualTo(expectedHeader));
+            Assert.That(headerPage.ExtractPageTitle(), Is.EqualTo(expectedHeader));
         }
 
         [Then("the following fields should be visible")]
@@ -80,5 +81,36 @@ namespace SwagLabs.Definitions.Steps
                 $"Expected '{buttonName}' button to be visible");
         }
 
+        [When("I enter first name {string}")]
+        public void WhenIEnterFirstName(string firstName)
+        {
+            checkoutStepOnePage.enterFirstName(firstName);
+        }
+
+        [When("I enter last name {string}")]
+        public void WhenIEnterLastName(string lastName)
+        {
+            checkoutStepOnePage.enterLastName(lastName);
+        }
+
+
+        [When("I enter zip code {string}")]
+        public void WhenIEnterZipCode(string zipCode)
+        {
+            checkoutStepOnePage.enterZipCode(zipCode);
+        }
+
+        [When("I click on continue button")]
+        public void WhenIClickOnContinueButton()
+        {
+            checkoutStepOnePage.clickOnContinueBtn();
+        }
+
+        [Then("I should be on the checkout step two page")]
+        public void ThenIShouldBeOnTheCheckoutStepTwoPage()
+        {
+            WaitHelper.WaitForUrl(context.Driver, "checkout-step-two");
+            Assert.That(context.Driver.Url, Does.Contain("checkout-step-two"));
+        }
     }
 }

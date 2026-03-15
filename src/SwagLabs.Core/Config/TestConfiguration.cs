@@ -6,7 +6,7 @@ namespace SwagLabs.Core.Config
     {
         public string BaseUrl { get; set; } = string.Empty;
         public string Browser {  get; set; } = "Chrome";
-        public int ExplicitWaitSeconds { get; set; } = 20;
+        public int ExplicitWaitSeconds { get; set; } = 30;
         public int PageLoadTimeoutSeconds { get; set; } = 30;
 
         public static TestConfiguration Load()

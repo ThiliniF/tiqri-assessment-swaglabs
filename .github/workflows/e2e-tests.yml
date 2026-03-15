@@ -44,7 +44,7 @@ jobs:
 
       - name: Generate LivingDoc Report
         if: always()
-        run: livingdoc test-assembly src/SwagLabs.Definitions/bin/Debug/net10.0/SwagLabs.Definitions.dll -t src/SwagLabs.Definitions/bin/Debug/net10.0/TestExecution.json
+        run: livingdoc feature-folder src/SwagLabs.Definitions/Features --output LivingDoc.html
 
       - name: Upload LivingDoc Report
         uses: actions/upload-artifact@v4

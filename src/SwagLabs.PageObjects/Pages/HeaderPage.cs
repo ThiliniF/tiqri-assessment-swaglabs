@@ -9,12 +9,18 @@ namespace SwagLabs.PageObjects.Pages
 {
     public class HeaderPage : BasePage
     {
+        private readonly By title = ByTestId("title");
+
         private readonly By cartLink = ByTestId("shopping-cart-link");
         public HeaderPage(IWebDriver driver, TestConfiguration config) : base(driver, config) { }
 
         public void ClickOnCart()
         {
             WaitForClickable(cartLink).Click();
+        }
+        public string ExtractPageTitle()
+        {
+            return WaitForElement(title).Text;
         }
     }
 }

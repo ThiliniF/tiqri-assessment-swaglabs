@@ -10,7 +10,6 @@ namespace SwagLabs.PageObjects.Pages
 {
     public class CheckoutStepOnePage : BasePage
     {
-        private readonly By title = ByTestId("title");
         private readonly By firstNameInput = ByTestId("firstName");
         private readonly By lastNameInput = ByTestId("lastName");
         private readonly By zipCodeInput = ByTestId("postalCode");
@@ -18,11 +17,6 @@ namespace SwagLabs.PageObjects.Pages
         private readonly By cancelBtn = ByTestId("cancel");
 
         public CheckoutStepOnePage(IWebDriver driver, TestConfiguration config): base(driver, config) { }
-
-        public string ExtractPageTitle()
-        {
-            return WaitForElement(title).Text;
-        }
 
         public bool IsFieldVisible(string fieldLabel)
         {
@@ -44,6 +38,29 @@ namespace SwagLabs.PageObjects.Pages
               };
 
             return WaitForElement(buttons[buttonLabel]).Displayed;
+        }
+
+        public void enterFirstName(string firstName)
+        {
+            WaitForElement(firstNameInput).Clear();
+            WaitForElement(firstNameInput).SendKeys(firstName);
+        }
+
+        public void enterLastName(string lastName)
+        {
+            WaitForElement(lastNameInput).Clear();
+            WaitForElement(lastNameInput).SendKeys(lastName);
+        }
+
+        public void enterZipCode(string zipCode)
+        {
+            WaitForElement(zipCodeInput).Clear();
+            WaitForElement(zipCodeInput).SendKeys(zipCode);
+        }
+
+        public void clickOnContinueBtn()
+        {
+            WaitForClickable(continueBtn).Click();
         }
     }
 }
