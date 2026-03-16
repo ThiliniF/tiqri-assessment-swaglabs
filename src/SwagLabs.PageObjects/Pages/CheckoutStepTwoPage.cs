@@ -16,6 +16,7 @@ namespace SwagLabs.PageObjects.Pages
         private readonly By subtotalLbl = ByTestId("subtotal-label");
         private readonly By taxLbl = ByTestId("tax-label");
         private readonly By totalLbl = ByTestId("total-label");
+        private readonly By finishBtn = ByTestId("finish");
 
         public CheckoutStepTwoPage(IWebDriver driver, TestConfiguration config) : base(driver, config) { }
 
@@ -57,6 +58,11 @@ namespace SwagLabs.PageObjects.Pages
             if (!match.Success)
                 throw new FormatException($"Could not parse price from: '{text}'");
             return decimal.Parse(match.Groups[1].Value);
+        }
+
+        public void clickOnFinishBtn()
+        {
+            WaitForElement(finishBtn).Click();
         }
     }
 }

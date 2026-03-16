@@ -74,3 +74,17 @@ Scenario: Checkout information form is displayed after adding a product
     And I should see the item total
     And I should see the tax amount
     And the order total should be the sum of item total and tax
+
+ Scenario: Successfully finish order from overview
+    Given I am on the "Products" page
+    When I click on "Sauce Labs Backpack"
+    And I add it to the cart
+    And I navigate to the cart
+    And I click checkout button
+    And I enter first name "John"
+    And I enter last name "Doe"
+    And I enter zip code "11000"
+    And I click on continue button
+    And I click on the finish button
+    Then I should see the page header "Checkout: Complete!"
+    And I see the order confirmation page

@@ -49,7 +49,7 @@ jobs:
 
       - name: Generate LivingDoc Report
         if: always()
-        run: livingdoc feature-folder src/SwagLabs.Definitions/Features --output LivingDoc.html
+        run: livingdoc feature-folder src/SwagLabs.Definitions/Features --test-output src/SwagLabs.Definitions/TestResults/test-results.trx --output LivingDoc.html
 
       - name: Upload LivingDoc Report
         uses: actions/upload-artifact@v4

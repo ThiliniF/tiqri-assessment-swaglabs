@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
+using NUnit.Framework;
 using SwagLabs.Core.Helpers;
 using SwagLabs.Definitions.Support;
 using SwagLabs.PageObjects.Components;
@@ -18,15 +19,17 @@ namespace SwagLabs.Definitions.Steps
         private readonly CartPage cartPage;
         private readonly CheckoutStepOnePage checkoutStepOnePage;
         private readonly CheckoutStepTwoPage checkoutStepTwoPage;
+        private readonly CheckoutCompletePage checkoutCompletePage;
 
         public CheckoutSteps(DriverContext driverContext,
             ScenarioContext scenarioContext,
-            InventoryPage inventoryPage, 
-            InventoryItemPage inventoryItemPage, 
-            HeaderPage headerPage, 
-            CartPage cartPage, 
+            InventoryPage inventoryPage,
+            InventoryItemPage inventoryItemPage,
+            HeaderPage headerPage,
+            CartPage cartPage,
             CheckoutStepOnePage checkoutStepOnePage,
-            CheckoutStepTwoPage checkoutStepTwoPage)
+            CheckoutStepTwoPage checkoutStepTwoPage,
+            CheckoutCompletePage checkoutCompletePage)
         {
             context = driverContext;
             this.scenarioContext = scenarioContext;
@@ -36,6 +39,7 @@ namespace SwagLabs.Definitions.Steps
             this.cartPage = cartPage;
             this.checkoutStepOnePage = checkoutStepOnePage;
             this.checkoutStepTwoPage = checkoutStepTwoPage;
+            this.checkoutCompletePage = checkoutCompletePage;
         }
 
         [Given("I am on the {string} page")]
@@ -193,6 +197,23 @@ namespace SwagLabs.Definitions.Steps
             var orderTotal = checkoutStepTwoPage.GetOrderTotal();
             Assert.That(orderTotal, Is.EqualTo(itemTotal + tax).Within(0.01m),
                 $"Expected order total ${orderTotal} to equal item total ${itemTotal} + tax ${tax}");
+        }
+
+        [When("I click on the finish button")]
+        public void WhenIClickOnTheFinishButton()
+        {
+            checkoutStepTwoPage.clickOnFinishBtn();
+        }
+
+        [Then("I see the order confirmation page")]
+        public void ThenISeeTheOrderConfirmationPage() {
+            Assert.That(checkoutCompletePage.IsOrderConfirmationDisplayed(), Is.True,
+                "Expected order confirmation header to be displayed");
+        }
+
+        [Then("I should see an error message containing {string}")]
+        public void ThenIShouldSeeAnErrorMessage(string errorMsg){
+            Assert.That(checkoutStepOnePage.retrieveErrorMsg(), Is.EqualTo(errorMsg));
         }
     }
 }

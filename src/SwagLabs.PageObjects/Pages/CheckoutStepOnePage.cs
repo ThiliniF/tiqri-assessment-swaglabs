@@ -15,6 +15,7 @@ namespace SwagLabs.PageObjects.Pages
         private readonly By zipCodeInput = ByTestId("postalCode");
         private readonly By continueBtn = ByTestId("continue");
         private readonly By cancelBtn = ByTestId("cancel");
+        private readonly By errorMsg = ByTestId("error");
 
         public CheckoutStepOnePage(IWebDriver driver, TestConfiguration config): base(driver, config) { }
 
@@ -64,6 +65,11 @@ namespace SwagLabs.PageObjects.Pages
         public void ClickOnContinueBtn()
         {
             WaitForClickable(continueBtn).Click();
+        }
+
+        public string retrieveErrorMsg()
+        {
+            return WaitForElement(errorMsg).Text;
         }
     }
 }
