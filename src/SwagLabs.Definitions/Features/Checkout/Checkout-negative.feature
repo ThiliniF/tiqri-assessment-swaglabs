@@ -29,7 +29,6 @@ Examples:
 	| John      | Doe      |         | Error: Postal Code is required |
 	|           |          |         | Error: First Name is required  |
 
-  # TODO: Error message can be dismissed
 Scenario: Error message is dismissed when X is clicked
 	Given I am on the "Products" page
 	When I click on "Sauce Labs Backpack"
