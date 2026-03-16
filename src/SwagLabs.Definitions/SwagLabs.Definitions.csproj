@@ -11,6 +11,7 @@
     <PackageReference Include="Reqnroll.NUnit" Version="3.3.3" />
     <PackageReference Include="nunit" Version="4.5.1" />
     <PackageReference Include="NUnit3TestAdapter" Version="6.1.0" />
+    <PackageReference Include="Reqnroll.Plus.LivingDoc" Version="1.0.0" />
   </ItemGroup>
 
   <ItemGroup>
