@@ -12,6 +12,7 @@ namespace SwagLabs.PageObjects.Components
         private readonly By title = ByTestId("title");
 
         private readonly By cartLink = ByTestId("shopping-cart-link");
+        private readonly By cartBadge = ByTestId("shopping-cart-badge");
         public HeaderPage(IWebDriver driver, TestConfiguration config) : base(driver, config) { }
 
         public void ClickOnCart()
@@ -21,6 +22,11 @@ namespace SwagLabs.PageObjects.Components
         public string ExtractPageTitle()
         {
             return WaitForElement(title).Text;
+        }
+
+        public string RetrieveCartBadgeCount()
+        {
+            return WaitForElement(cartBadge).Text;
         }
     }
 }

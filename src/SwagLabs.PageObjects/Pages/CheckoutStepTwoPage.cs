@@ -17,6 +17,7 @@ namespace SwagLabs.PageObjects.Pages
         private readonly By taxLbl = ByTestId("tax-label");
         private readonly By totalLbl = ByTestId("total-label");
         private readonly By finishBtn = ByTestId("finish");
+        private readonly By cancelBtn = ByTestId("cancel");
 
         public CheckoutStepTwoPage(IWebDriver driver, TestConfiguration config) : base(driver, config) { }
 
@@ -63,6 +64,11 @@ namespace SwagLabs.PageObjects.Pages
         public void clickOnFinishBtn()
         {
             WaitForClickable(finishBtn).Click();
+        }
+
+        public void ClickOnCancelBtn()
+        {
+            WaitForClickable(cancelBtn).Click();
         }
     }
 }

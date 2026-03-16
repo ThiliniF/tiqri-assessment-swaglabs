@@ -71,5 +71,9 @@ namespace SwagLabs.PageObjects.Pages
         {
             return WaitForElement(errorMsg).Text;
         }
+        public void ClickOnCancelBtn()
+        {
+            WaitForClickable(cancelBtn).Click();
+        }
     }
 }

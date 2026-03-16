@@ -213,5 +213,30 @@ namespace SwagLabs.Definitions.Steps
         public void ThenIShouldSeeAnErrorMessage(string errorMsg){
             Assert.That(checkoutStepOnePage.RetrieveErrorMsg(), Is.EqualTo(errorMsg));
         }
+
+        [Then("the cart badge should display {string}")]
+        public void ThenTheCartBadgeShouldDisplay(string batchCount)
+        {
+            Assert.That(headerPage.RetrieveCartBadgeCount(), Is.EqualTo(batchCount));
+        }
+
+        [When("I click on the cancel button in checkout one page")]
+        public void WhenIClickOnTheCheckoutOneCancelButton()
+        {
+            checkoutStepOnePage.ClickOnCancelBtn();
+        }
+
+        [When("I click on the cancel button in checkout two page")]
+        public void WhenIClickOnTheCheckoutTwoCancelButton()
+        {
+            checkoutStepTwoPage.ClickOnCancelBtn();
+        }
+
+        [When("I click on the back home button")]
+        public void WhenIClickOnTheBackHomeButton()
+        {
+            checkoutCompletePage.ClickOnBackHomeBtn();
+        }
+
     }
 }
