@@ -16,8 +16,9 @@ namespace SwagLabs.PageObjects.Pages
         private readonly By continueBtn = ByTestId("continue");
         private readonly By cancelBtn = ByTestId("cancel");
         private readonly By errorMsg = ByTestId("error");
+        private readonly By errorDismissBtn = ByTestId("error-button");
 
-        public CheckoutStepOnePage(IWebDriver driver, TestConfiguration config): base(driver, config) { }
+        public CheckoutStepOnePage(IWebDriver driver, TestConfiguration config) : base(driver, config) { }
 
         public bool IsFieldVisible(string fieldLabel)
         {
@@ -31,7 +32,8 @@ namespace SwagLabs.PageObjects.Pages
             return WaitForElement(fields[fieldLabel]).Displayed;
         }
 
-        public bool IsButtonVisible(string buttonLabel) {
+        public bool IsButtonVisible(string buttonLabel)
+        {
             var buttons = new Dictionary<string, By>
               {
                   { "Continue", continueBtn },
@@ -74,6 +76,16 @@ namespace SwagLabs.PageObjects.Pages
         public void ClickOnCancelBtn()
         {
             WaitForClickable(cancelBtn).Click();
+        }
+        public void DismissErrorMessage()
+        {
+            WaitForClickable(errorDismissBtn).Click();
+        }
+
+        public bool IsErrorMessageVisible()
+        {
+            var elements = Driver.FindElements(errorMsg);
+            return elements.Count > 0 && elements[0].Displayed;
         }
     }
 }

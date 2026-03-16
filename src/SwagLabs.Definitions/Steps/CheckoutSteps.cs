@@ -204,13 +204,15 @@ namespace SwagLabs.Definitions.Steps
         }
 
         [Then("I see the order confirmation page")]
-        public void ThenISeeTheOrderConfirmationPage() {
+        public void ThenISeeTheOrderConfirmationPage()
+        {
             Assert.That(checkoutCompletePage.IsOrderConfirmationDisplayed(), Is.True,
                 "Expected order confirmation header to be displayed");
         }
 
         [Then("I should see an error message {string}")]
-        public void ThenIShouldSeeAnErrorMessage(string errorMsg){
+        public void ThenIShouldSeeAnErrorMessage(string errorMsg)
+        {
             Assert.That(checkoutStepOnePage.RetrieveErrorMsg(), Is.EqualTo(errorMsg));
         }
 
@@ -238,5 +240,17 @@ namespace SwagLabs.Definitions.Steps
             checkoutCompletePage.ClickOnBackHomeBtn();
         }
 
+        [When("I dismiss the error message")]
+        public void WhenIDismissTheErrorMessage()
+        {
+            checkoutStepOnePage.DismissErrorMessage();
+        }
+
+        [Then("the error message should not be visible")]
+        public void ThenTheErrorMessageShouldNotBeVisible()
+        {
+            Assert.That(checkoutStepOnePage.IsErrorMessageVisible(), Is.False,
+                "Expected error message to not be visible after dismissal");
+        }
     }
 }

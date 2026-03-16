@@ -23,18 +23,18 @@ namespace SwagLabs.Definitions.Steps
             loginPage.NavigateToLoginPage();
         }
 
-        [When ("I login as a standard user")]
+        [When("I login as a standard user")]
         public void WhenILoginAsAStandardUser()
         {
             loginPage.Login(context.Config.Username, context.Config.Password);
         }
 
-        [Then ("I should be on the inventory page")]
+        [Then("I should be on the inventory page")]
         public void ThenIShouldBeOnTheInventoryPage()
         {
             WaitHelper.WaitForUrl(context.Driver, "inventory");
             Assert.That(context.Driver.Url, Does.Contain("inventory"));
         }
-        
+
     }
 }

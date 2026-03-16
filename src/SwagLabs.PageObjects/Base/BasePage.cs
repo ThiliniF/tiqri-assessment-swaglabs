@@ -28,7 +28,7 @@ namespace SwagLabs.PageObjects.Base
         {
             return WaitHelper.WaitForElementClickable(Driver, locator, Config.ExplicitWaitSeconds);
         }
-        
+
         protected void NavigateTo(string relativePath = "")
         {
             Driver.Navigate().GoToUrl(Config.BaseUrl + relativePath);
