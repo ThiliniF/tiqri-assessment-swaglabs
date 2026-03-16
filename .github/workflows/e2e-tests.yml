@@ -43,24 +43,11 @@ jobs:
           name: test-results
           path: "**/test-results.trx"
 
-      - name: Install LivingDoc
-        if: always()
-        run: dotnet tool install --global SpecFlow.Plus.LivingDoc.CLI
-
-      - name: Generate LivingDoc Report
-        if: always()
-        run: |
-          livingdoc feature-folder src/SwagLabs.Definitions/Features \
-            -t "**/TestExecution.json" \
-            --output LivingDoc.html
-
-      - name: Find TestExecution.json
-        if: always()
-        run: find . -name "TestExecution.json" 2>/dev/null || echo "Not found"
-
-      - name: Upload LivingDoc Report
-        uses: actions/upload-artifact@v4
+      - name: Test Report
+        uses: dorny/test-reporter@v1
         if: always()
         with:
-          name: livingdoc-report
-          path: LivingDoc.html
+          name: E2E Test Results
+          path: "**/TestResults/test-results.trx"
+          reporter: dotnet-trx
+          fail-on-error: false

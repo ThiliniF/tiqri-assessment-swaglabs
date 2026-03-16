@@ -67,7 +67,7 @@ namespace SwagLabs.PageObjects.Pages
             WaitForClickable(continueBtn).Click();
         }
 
-        public string retrieveErrorMsg()
+        public string RetrieveErrorMsg()
         {
             return WaitForElement(errorMsg).Text;
         }

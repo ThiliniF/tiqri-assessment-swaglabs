@@ -26,9 +26,7 @@ namespace SwagLabs.Definitions.Steps
         [When ("I login as a standard user")]
         public void WhenILoginAsAStandardUser()
         {
-            loginPage.EnterUsername(context.Config.Username);
-            loginPage.EnterPassword(context.Config.Password);
-            loginPage.ClickOnLoginBtn();
+            loginPage.Login(context.Config.Username, context.Config.Password);
         }
 
         [Then ("I should be on the inventory page")]

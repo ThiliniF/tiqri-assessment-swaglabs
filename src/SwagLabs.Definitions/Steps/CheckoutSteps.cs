@@ -1,10 +1,8 @@
-﻿using Microsoft.VisualStudio.TestPlatform.CommunicationUtilities;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using SwagLabs.Core.Helpers;
 using SwagLabs.Definitions.Support;
 using SwagLabs.PageObjects.Components;
 using SwagLabs.PageObjects.Pages;
-using System.Diagnostics.Metrics;
 
 namespace SwagLabs.Definitions.Steps
 {
@@ -43,7 +41,7 @@ namespace SwagLabs.Definitions.Steps
         }
 
         [Given("I am on the {string} page")]
-        public void GivenIAmOnTheInventoryPage(string pageHeader)
+        public void GivenIAmOnThePage(string pageHeader)
         {
             Assert.That(headerPage.ExtractPageTitle(), Is.EqualTo(pageHeader));
         }
@@ -211,9 +209,9 @@ namespace SwagLabs.Definitions.Steps
                 "Expected order confirmation header to be displayed");
         }
 
-        [Then("I should see an error message containing {string}")]
+        [Then("I should see an error message {string}")]
         public void ThenIShouldSeeAnErrorMessage(string errorMsg){
-            Assert.That(checkoutStepOnePage.retrieveErrorMsg(), Is.EqualTo(errorMsg));
+            Assert.That(checkoutStepOnePage.RetrieveErrorMsg(), Is.EqualTo(errorMsg));
         }
     }
 }

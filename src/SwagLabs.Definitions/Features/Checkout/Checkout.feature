@@ -38,19 +38,33 @@ Scenario: Checkout information form is displayed after adding a product
     Then I should be on the checkout step two page
     And I should see the page header "Checkout: Overview"
 
- Scenario: Add multiple items to the cart
+ Scenario: Checkout overview displays multiple items added
     Given I am on the "Products" page
-      When I add the following items to the cart
+    When I add the following items to the cart
         | Item                    |
         | Sauce Labs Backpack     |
         | Sauce Labs Bike Light   |
         | Sauce Labs Bolt T-Shirt |
-      And I navigate to the cart
-      Then the cart should contain
+    And I navigate to the cart
+    Then the cart should contain
         | Item                    |
         | Sauce Labs Backpack     |
         | Sauce Labs Bike Light   |
         | Sauce Labs Bolt T-Shirt |
+    When I navigate to the cart
+    And I click checkout button
+    And I enter first name "John"
+    And I enter last name "Doe"
+    And I enter zip code "11000"
+    And I click on continue button
+    Then I should be on the checkout step two page
+    And I should see the page header "Checkout: Overview"
+    And the cart should contain
+        | Item                    |
+        | Sauce Labs Backpack     |
+        | Sauce Labs Bike Light   |
+        | Sauce Labs Bolt T-Shirt |
+        
 
  Scenario: Checkout overview displays order summary
     Given I am on the "Products" page
@@ -88,3 +102,53 @@ Scenario: Checkout information form is displayed after adding a product
     And I click on the finish button
     Then I should see the page header "Checkout: Complete!"
     And I see the order confirmation page
+
+  # TODO: Cart badge updates when items are added
+  Scenario: Cart badge reflects the number of items added
+      Given I am on the "Products" page
+      When I add the following items to the cart
+        | Item                  |
+        | Sauce Labs Backpack   |
+        | Sauce Labs Bike Light |
+      Then the cart badge should display "2"
+
+  # TODO: Cancel from checkout step one returns to cart
+  Scenario: Cancelling checkout step one returns to cart
+      Given I am on the "Products" page
+      When I click on "Sauce Labs Backpack"
+      And I add it to the cart
+      And I navigate to the cart
+      And I click checkout button
+      And I click on the cancel button
+      Then I should see the page header "Your Cart"
+
+  # TODO: Back button on overview returns to checkout form
+  Scenario: Cancelling checkout overview returns to inventory
+      Given I am on the "Products" page
+      When I click on "Sauce Labs Backpack"
+      And I add it to the cart
+      And I navigate to the cart
+      And I click checkout button
+      And I enter first name "John"
+      And I enter last name "Doe"
+      And I enter zip code "11000"
+      And I click on continue button
+      And I click on the cancel button
+      Then I should see the page header "Products"
+
+  # TODO: Back button on overview returns to checkout form
+  Scenario: Back Home button from checkout complete returns to inventory
+      Given I am on the "Products" page
+      When I click on "Sauce Labs Backpack"
+      And I add it to the cart
+      And I navigate to the cart
+      And I click checkout button
+      And I enter first name "John"
+      And I enter last name "Doe"
+      And I enter zip code "11000"
+      And I click on continue button
+      And I click on the finish button
+      Then I should see the page header "Checkout: Complete!"
+      And I see the order confirmation page
+      And I click on the back home button
+      Then I should see the page header "Products"

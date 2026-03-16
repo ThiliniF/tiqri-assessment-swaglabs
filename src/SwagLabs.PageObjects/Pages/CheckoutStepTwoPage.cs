@@ -62,7 +62,7 @@ namespace SwagLabs.PageObjects.Pages
 
         public void clickOnFinishBtn()
         {
-            WaitForElement(finishBtn).Click();
+            WaitForClickable(finishBtn).Click();
         }
     }
 }
